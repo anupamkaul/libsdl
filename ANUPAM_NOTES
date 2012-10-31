@@ -1,0 +1,54 @@
+ make
+/bin/bash build-scripts/updaterev.sh
+/bin/bash ./libtool --mode=compile gcc -g -O2  -DUSING_GENERATED_CONFIG_H -I./include  -mmmx -m3dnow -msse -fvisibility=hidden  -D_REENTRANT      -D_REENTRANT -DHAVE_LINUX_VERSION_H -Wall -MMD -MT build/SDL_waylandevents.lo -c src/video/wayland/SDL_waylandevents.c -o build/SDL_waylandevents.lo
+libtool: compile:  gcc -g -O2 -DUSING_GENERATED_CONFIG_H -I./include -mmmx -m3dnow -msse -fvisibility=hidden -D_REENTRANT -D_REENTRANT -DHAVE_LINUX_VERSION_H -Wall -MMD -MT build/SDL_waylandevents.lo -c src/video/wayland/SDL_waylandevents.c  -fPIC -DPIC -o build/.libs/SDL_waylandevents.o
+In file included from src/video/wayland/SDL_waylandevents.c:32:0:
+src/video/wayland/SDL_waylandvideo.h: In function ‘wayland_schedule_write’:
+src/video/wayland/SDL_waylandvideo.h:63:9: warning: implicit declaration of function ‘wl_display_iterate’ [-Wimplicit-function-declaration]
+src/video/wayland/SDL_waylandvideo.h:63:43: error: ‘WL_DISPLAY_WRITABLE’ undeclared (first use in this function)
+src/video/wayland/SDL_waylandvideo.h:63:43: note: each undeclared identifier is reported only once for each function it appears in
+src/video/wayland/SDL_waylandevents.c: At top level:
+src/video/wayland/SDL_waylandevents.c:41:33: fatal error: xkbcommon/xkbcommon.h: No such file or directory
+compilation terminated.
+
+
+wayland_schedule_write and WL_DISPLAY_WRITABLE is defined in these 2 wayland ports:
+git://people.freedesktop.org/~krh/wayland   --> using this (The README here also has instructions on building mesa (w/o wayland platform) and libxbcommon)
+https://github.com/msteinert/wayland.git
+
+(I was using wayland from: http://anongit.freedesktop.org/git/wayland/wayland.git)
+
+Next, there are function parameter mismatches between the downloaded libxbcommon and libsdl,
+so: sudo apt-get install libxkbcommon-dev
+
+Still get the same errors:
+
+/bin/bash ./libtool --mode=compile gcc -g -O2  -DUSING_GENERATED_CONFIG_H -I./include  -mmmx -m3dnow -msse -fvisibility=hidden  -D_REENTRANT      -D_REENTRANT -DHAVE_LINUX_VERSION_H -Wall -MMD -MT build/SDL_waylandevents.lo -c src/video/wayland/SDL_waylandevents.c -o build/SDL_waylandevents.lo
+libtool: compile:  gcc -g -O2 -DUSING_GENERATED_CONFIG_H -I./include -mmmx -m3dnow -msse -fvisibility=hidden -D_REENTRANT -D_REENTRANT -DHAVE_LINUX_VERSION_H -Wall -MMD -MT build/SDL_waylandevents.lo -c src/video/wayland/SDL_waylandevents.c  -fPIC -DPIC -o build/.libs/SDL_waylandevents.o
+src/video/wayland/SDL_waylandevents.c: In function ‘keyboard_handle_keymap’:
+src/video/wayland/SDL_waylandevents.c:216:49: error: too many arguments to function ‘xkb_map_new_from_string’
+/usr/local/include/xkbcommon/xkbcommon.h:310:1: note: declared here
+src/video/wayland/SDL_waylandevents.c: In function ‘keyboard_handle_key’:
+src/video/wayland/SDL_waylandevents.c:284:9: warning: implicit declaration of function ‘xkb_keysym_to_utf8’ [-Wimplicit-function-declaration]
+make: *** [build/SDL_waylandevents.lo] Error 1
+
+
+*** Obviously his version of libxkbcommon has fixes for these.
+
+Also noticed that benj_ version of libsdl *does not* have these extra changes that *andre* has, so moving to benj_ port for sometime.
+Other changes are now in benj_ port
+
+*** working on benji_ made me realize that it needs branch "-for-weston-0.85' of libxkbcommon. In the meantime, I also located the latest
+libxbcommon, which is on anongit, and I *see* that this has the latest 'xkb_map_new_from_string' with the correct parameters defined that 
+SDL_waylandevents.c seems to be using.  (git://anongit.freedesktop.org/git/xorg/lib/libxkbcommon - master branch)
+
+So I am back now to andre ...
+
+So it compiles on 12.04 32bit with:
+git://people.freedesktop.org/~krh/wayland - master branch
+git://anongit.freedesktop.org/git/xorg/lib/libxkbcommon - master branch
+git://anongit.freedesktop.org/mesa/mesa - master branch  (see ANUPAM_NOTES_MESA)
+
+
+
+

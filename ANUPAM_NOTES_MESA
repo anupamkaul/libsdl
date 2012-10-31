@@ -1,0 +1,185 @@
+sudo apt-get install xutils-dev x11proto-gl-dev x11proto-dri2-dev libxcb-glx0-dev libxcb-dri2-0-dev
+
+----------------------------------------------------------------------------
+
+configure: error: Package requirements (libdrm_intel >= 2.4.38) were not met:
+Requested 'libdrm_intel >= 2.4.38' but version of libdrm is 2.4.32
+
+$ sudo apt-cache search libdrm
+libdrm-dev - Userspace interface to kernel DRM services -- development files
+libdrm-intel1 - Userspace interface to intel-specific kernel DRM services -- runtime
+libdrm-intel1-dbg - Userspace interface to intel-specific kernel DRM services -- debugging symbols
+libdrm-nouveau1a - Userspace interface to nouveau-specific kernel DRM services -- runtime
+libdrm-nouveau1a-dbg - Userspace interface to nouveau-specific kernel DRM -- debugging symbols
+libdrm-radeon1 - Userspace interface to radeon-specific kernel DRM services -- runtime
+libdrm-radeon1-dbg - Userspace interface to radeon-specific kernel DRM services -- debugging symbols
+libdrm2 - Userspace interface to kernel DRM services -- runtime
+libdrm2-dbg - Userspace interface to kernel DRM services -- debugging symbols
+libdrmaa-dev - Distributed resource management Application API library
+libdrmaa-java - Distributed resource management Application API library - Java bindings
+libdrmaa1.0 - Distributed resource management Application API library
+
+Downloaded version 2.4.38 of libdrm from http://dri.freedesktop.org/libdrm/
+
+That passed the intel test but then radeon complained:
+
+Requested 'libdrm_radeon >= 2.4.39' but version of libdrm_radeon is 2.4.38
+
+So I downloaded version 2.4.39 of libdrm
+
+sudo apt-get install libxcb-xfixes0-dev
+
+: configure: error: LLVM is required to build Gallium R300 on x86 and x86_64
+
+sudo apt-cache search llvm
+libllvm-3.0-ocaml-dev - Low-Level Virtual Machine (LLVM), bindings for OCaml
+libllvm3.0 - Low-Level Virtual Machine (LLVM), runtime library
+llvm-3.0 - Low-Level Virtual Machine (LLVM)
+llvm-3.0-dev - Low-Level Virtual Machine (LLVM), libraries and headers
+llvm-3.0-doc - Low-Level Virtual Machine (LLVM), documentation
+llvm-3.0-examples - Low-Level Virtual Machine (LLVM), examples
+llvm-3.0-runtime - Low-Level Virtual Machine (LLVM), bytecode interpreter
+clang - Low-Level Virtual Machine (LLVM), C language family frontend
+dragonegg - GCC plugin that uses LLVM for optimization and code generation
+ldc - LLVM D Compiler
+libclang-common-dev - clang library - Common development package
+libclang-dev - clang library - Development package
+libclang1 - clang library
+libghc-llvm-base-dev - low-level bindings to the LLVM compiler toolkit
+libghc-llvm-base-doc - low-level bindings to the LLVM compiler toolkit; documentation
+libghc-llvm-base-prof - low-level bindings to the LLVM compiler toolkit; profiling libraries
+libghc-llvm-dev - Haskell bindings to the LLVM compiler toolkit
+libghc-llvm-doc - Documentation for haskell LLVM bindings
+libghc-llvm-prof - Profiling libraries haskell LLVM bindings
+libghc6-llvm-dev - transitional dummy package
+libghc6-llvm-doc - transitional dummy package
+libghc6-llvm-prof - transitional dummy package
+libllvm-2.8-ocaml-dev - Low-Level Virtual Machine (LLVM), bindings for OCaml
+libllvm-2.9-ocaml-dev - Low-Level Virtual Machine (LLVM), bindings for OCaml
+libllvm-ocaml-dev - Low-Level Virtual Machine (LLVM), bindings for OCaml
+libllvm2.8 - Low-Level Virtual Machine (LLVM), runtime library
+libllvm2.9 - Low-Level Virtual Machine (LLVM), runtime library
+llvm - Low-Level Virtual Machine (LLVM)
+llvm-2.8 - Low-Level Virtual Machine (LLVM)
+llvm-2.8-dev - Low-Level Virtual Machine (LLVM), libraries and headers
+llvm-2.8-doc - Low-Level Virtual Machine (LLVM), documentation
+llvm-2.8-examples - Low-Level Virtual Machine (LLVM), examples
+llvm-2.8-runtime - Low-Level Virtual Machine (LLVM), bytecode interpreter
+llvm-2.8-source - Low-Level Virtual Machine (LLVM), source code
+llvm-2.9 - Low-Level Virtual Machine (LLVM)
+llvm-2.9-dev - Low-Level Virtual Machine (LLVM), libraries and headers
+llvm-2.9-doc - Low-Level Virtual Machine (LLVM), documentation
+llvm-2.9-examples - Low-Level Virtual Machine (LLVM), examples
+llvm-2.9-runtime - Low-Level Virtual Machine (LLVM), bytecode interpreter
+llvm-2.9-source - Low-Level Virtual Machine (LLVM), source code
+llvm-3.0-source - Low-Level Virtual Machine (LLVM), source code
+llvm-dev - Low-Level Virtual Machine (LLVM), libraries and headers
+llvm-gcc-4.6 - C front end for LLVM C/C++ compiler
+llvm-runtime - Low-Level Virtual Machine (LLVM), bytecode interpreter
+python-llvm - Python bindings for LLVM
+python-llvm-dbg - Python bindings for LLVM (debug mode)
+
+
+sudo apt-get install llvm-dev
+
+Suggested packages:
+  llvm-2.9-doc
+The following NEW packages will be installed:
+  binfmt-support libllvm2.9 llvm llvm-2.9 llvm-2.9-dev llvm-2.9-runtime llvm-dev llvm-runtime
+
+
+-- At the end of configure:
+
+prefix:          /usr/local
+        exec_prefix:     ${prefix}
+        libdir:          ${exec_prefix}/lib
+        includedir:      ${prefix}/include
+
+        OpenGL:          yes (ES1: no ES2: no)
+        OpenVG:          no
+
+        OSMesa:          no
+        DRI drivers:     i915 i965 nouveau r200 radeon swrast
+        DRI driver dir:  ${libdir}/dri
+        GLX:             DRI-based
+
+        EGL:             yes
+        EGL platforms:   x11
+        EGL drivers:     builtin:egl_glx builtin:egl_dri2
+
+        llvm:            yes
+        llvm-config:     /usr/bin/llvm-config
+        llvm-version:    2.9
+
+        Gallium:         yes
+        Gallium dirs:    auxiliary drivers state_trackers
+        Target dirs:     dri-r300 dri-r600 dri-swrast dri-vmwgfx 
+        Winsys dirs:     radeon/drm svga/drm sw sw/dri 
+        Driver dirs:     galahad identity llvmpipe noop r300 r600 rbug softpipe svga trace 
+        Trackers dirs:   dri 
+
+        Shared libs:     yes
+        Static libs:     no
+        Shared-glapi:    yes
+
+        CFLAGS:          -g -O2 -Wall -std=c99 -Werror=implicit-function-declaration -Werror=missing-prototypes -fno-strict-aliasing -fno-builtin-memcmp -fPIC
+        CXXFLAGS:        -g -O2 -Wall -fno-strict-aliasing -fno-builtin-memcmp -fPIC
+        Macros:          -D_GNU_SOURCE -DHAVE_PTHREAD -DUSE_X86_ASM -DUSE_MMX_ASM -DUSE_3DNOW_ASM -DUSE_SSE_ASM -DHAVE_DLOPEN -DHAVE_POSIX_MEMALIGN -DIN_DRI_DRIVER -DGLX_INDIRECT_RENDERING -DGLX_DIRECT_RENDERING -DUSE_EXTERNAL_DXTN_LIB=1 -DIN_DRI_DRIVER -DHAVE_ALIAS -DHAVE_MINCORE -DHAVE_LIBUDEV -DHAVE_LLVM=0x0209
+
+        PYTHON2:         python2
+
+        Run 'make' to build Mesa
+
+
+-- Mesa built and installed. 
+
+:: On building libsdl (wl), it complains that it cannot find package egl-wayland
+
+Apparently, we may need to build mesa TWICE, once without wayland support, and once with:
+http://lists.freedesktop.org/archives/wayland-devel/2011-February/000684.html
+
+So, I did this:
+./autogen.sh --enable-gles2 --with-egl-platforms=wayland,drm
+
+The output of autogen was;
+
+prefix:          /usr/local
+        exec_prefix:     ${prefix}
+        libdir:          ${exec_prefix}/lib
+        includedir:      ${prefix}/include
+
+        OpenGL:          yes (ES1: no ES2: yes)
+        OpenVG:          no
+
+        OSMesa:          no
+        DRI drivers:     i915 i965 nouveau r200 radeon swrast
+        DRI driver dir:  ${libdir}/dri
+        GLX:             DRI-based
+
+        EGL:             yes
+        EGL platforms:   wayland drm
+        EGL drivers:     builtin:egl_glx builtin:egl_dri2
+
+        llvm:            yes
+        llvm-config:     /usr/bin/llvm-config
+        llvm-version:    2.9
+
+        Gallium:         yes
+        Gallium dirs:    auxiliary drivers state_trackers
+        Target dirs:     dri-r300 dri-r600 dri-swrast dri-vmwgfx 
+        Winsys dirs:     radeon/drm svga/drm sw sw/dri sw/wayland 
+        Driver dirs:     galahad identity llvmpipe noop r300 r600 rbug softpipe svga trace 
+        Trackers dirs:   dri 
+
+        Shared libs:     yes
+        Static libs:     no
+        Shared-glapi:    yes
+
+        CFLAGS:          -g -O2 -Wall -std=c99 -Werror=implicit-function-declaration -Werror=missing-prototypes -fno-strict-aliasing -fno-builtin-memcmp -fPIC
+        CXXFLAGS:        -g -O2 -Wall -fno-strict-aliasing -fno-builtin-memcmp -fPIC
+        Macros:          -D_GNU_SOURCE -DHAVE_PTHREAD -DUSE_X86_ASM -DUSE_MMX_ASM -DUSE_3DNOW_ASM -DUSE_SSE_ASM -DHAVE_DLOPEN -DHAVE_POSIX_MEMALIGN -DIN_DRI_DRIVER -DGLX_INDIRECT_RENDERING -DGLX_DIRECT_RENDERING -DUSE_EXTERNAL_DXTN_LIB=1 -DIN_DRI_DRIVER -DHAVE_ALIAS -DHAVE_MINCORE -DHAVE_LIBUDEV -DHAVE_LLVM=0x0209
+
+        PYTHON2:         python2
+
+        Run 'make' to build Mesa
+
