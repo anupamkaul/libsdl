@@ -40,6 +40,8 @@
 #include <unistd.h>
 #include <xkbcommon/xkbcommon.h>
 
+#define FP()   fprintf(stderr, "%s\n", __PRETTY_FUNCTION__);
+
 struct SDL_WaylandInput {
     SDL_WaylandData *display;
     struct wl_seat *seat;
@@ -65,6 +67,8 @@ Wayland_PumpEvents(_THIS)
     if (!(d->event_mask & WL_DISPLAY_READABLE))
         return;
 
+    FP();
+
     tv.tv_sec  = 0;
     tv.tv_usec = 0;
     do {
@@ -89,6 +93,8 @@ pointer_handle_enter(void *data, struct wl_pointer *pointer,
     struct SDL_WaylandInput *input = data;
     SDL_WaylandWindow *window;
 
+    FP();
+
     if (!surface) {
         /* enter event for a window we've just destroyed */
         return;
@@ -105,6 +111,8 @@ pointer_handle_leave(void *data, struct wl_pointer *pointer,
 {
     struct SDL_WaylandInput *input = data;
 
+    FP();
+
     SDL_SetMouseFocus(NULL);
     input->pointer_focus = NULL;
 }
@@ -118,6 +126,7 @@ pointer_handle_motion(void *data, struct wl_pointer *pointer,
     int sx = wl_fixed_to_int(sx_w);
     int sy = wl_fixed_to_int(sy_w);
 
+    FP();
     SDL_SendMouseMotion(window->sdlwindow, 0, sx, sy);
 }
 
@@ -129,7 +138,8 @@ pointer_handle_button(void *data, struct wl_pointer *pointer, uint32_t serial,
     SDL_WaylandWindow *window = input->pointer_focus;
     enum wl_pointer_button_state state = state_w;
     uint32_t sdl_button;
-
+ 
+    FP();
     switch (button) {
     case BTN_LEFT:
         sdl_button = SDL_BUTTON_LEFT;
@@ -163,6 +173,7 @@ pointer_handle_axis(void *data, struct wl_pointer *pointer,
     enum wl_pointer_axis a = axis;
     int x, y;
 
+    FP();
     switch (a) {
     case WL_POINTER_AXIS_VERTICAL_SCROLL:
         x = 0;
@@ -194,6 +205,7 @@ keyboard_handle_keymap(void *data, struct wl_keyboard *keyboard,
     struct SDL_WaylandInput *input = data;
     char *map_str;
 
+    FP();
     if (!data) {
         close(fd);
         return;
@@ -239,6 +251,7 @@ keyboard_handle_enter(void *data, struct wl_keyboard *keyboard,
     struct SDL_WaylandInput *input = data;
     SDL_WaylandWindow *window = wl_surface_get_user_data(surface);
 
+    FP();
     input->keyboard_focus = window;
     window->keyboard_device = input;
     SDL_SetKeyboardFocus(window->sdlwindow);
@@ -248,6 +261,7 @@ static void
 keyboard_handle_leave(void *data, struct wl_keyboard *keyboard,
                       uint32_t serial, struct wl_surface *surface)
 {
+    FP();
     SDL_SetKeyboardFocus(NULL);
 }
 
@@ -264,6 +278,7 @@ keyboard_handle_key(void *data, struct wl_keyboard *keyboard,
     char text[8];
     int size;
 
+    FP();
     if (key < SDL_arraysize(xfree86_scancode_table2)) {
         scancode = xfree86_scancode_table2[key];
 
@@ -298,6 +313,7 @@ keyboard_handle_modifiers(void *data, struct wl_keyboard *keyboard,
 {
     struct SDL_WaylandInput *input = data;
 
+    FP();
     xkb_state_update_mask(input->xkb.state, mods_depressed, mods_latched,
                           mods_locked, 0, 0, group);
 }
@@ -316,6 +332,7 @@ seat_handle_capabilities(void *data, struct wl_seat *seat,
 {
     struct SDL_WaylandInput *input = data;
 
+    FP();
     if ((caps & WL_SEAT_CAPABILITY_POINTER) && !input->pointer) {
         input->pointer = wl_seat_get_pointer(seat);
         wl_pointer_set_user_data(input->pointer, input);
@@ -346,6 +363,7 @@ Wayland_display_add_input(SDL_WaylandData *d, uint32_t id)
 {
     struct SDL_WaylandInput *input;
 
+    FP();
     input = malloc(sizeof *input);
     if (input == NULL)
         return;
@@ -366,6 +384,7 @@ void Wayland_display_destroy_input(SDL_WaylandData *d)
 {
     struct SDL_WaylandInput *input = d->input;
 
+    FP();
     if (!input)
         return;
 

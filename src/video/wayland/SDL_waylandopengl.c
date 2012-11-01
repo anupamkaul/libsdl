@@ -28,12 +28,15 @@
 
 #include <dlfcn.h>
 
+#define FP()   fprintf(stderr, "%s\n", __PRETTY_FUNCTION__);
+
 void
 Wayland_GL_SwapWindow(_THIS, SDL_Window *window)
 {
     SDL_WaylandWindow *wind = window->driverdata;
     SDL_WaylandData *data = _this->driverdata;
 
+    FP(); fprintf(stderr, "Call EGL SWAP BUFFER!");
     eglSwapBuffers(data->edpy, wind->esurf);
 
     wayland_schedule_write(data);
@@ -57,6 +60,7 @@ Wayland_GL_LoadLibrary(_THIS, const char *path)
         EGL_NONE
     };
 
+    FP();
     config_attribs[ 3] = _this->gl_config.red_size;
     config_attribs[ 5] = _this->gl_config.green_size;
     config_attribs[ 7] = _this->gl_config.blue_size;
@@ -91,12 +95,14 @@ Wayland_GL_LoadLibrary(_THIS, const char *path)
 void *
 Wayland_GL_GetProcAddress(_THIS, const char *proc)
 {
+    FP();
     return eglGetProcAddress(proc);
 }
 
 void
 Wayland_GL_UnloadLibrary(_THIS)
 {
+    FP();
     SDL_WaylandData *data = _this->driverdata;
 
     if (_this->gl_config.driver_loaded) {
@@ -114,6 +120,7 @@ Wayland_GL_UnloadLibrary(_THIS)
 SDL_GLContext
 Wayland_GL_CreateContext(_THIS, SDL_Window *window)
 {
+    FP();
     SDL_WaylandData *data = _this->driverdata;
 
     data->context = eglCreateContext(data->edpy, data->econf,
@@ -138,6 +145,7 @@ Wayland_GL_MakeCurrent(_THIS, SDL_Window *window, SDL_GLContext context)
     SDL_WaylandData *data = _this->driverdata;
     SDL_WaylandWindow *wind = window->driverdata;
 
+    FP();
     if (!eglMakeCurrent(data->edpy, wind->esurf, wind->esurf,
                         data->context)) {
         SDL_SetError("Unable to make EGL context current");
@@ -165,6 +173,7 @@ void
 Wayland_GL_DeleteContext(_THIS, SDL_GLContext context)
 {
     SDL_WaylandData *data = _this->driverdata;
+    FP();
 
     eglMakeCurrent(data->edpy, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
     eglTerminate(data->edpy);

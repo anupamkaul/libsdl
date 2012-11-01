@@ -35,6 +35,8 @@
 
 #define WAYLANDVID_DRIVER_NAME "wayland"
 
+#define FP()   fprintf(stderr, "%s\n", __PRETTY_FUNCTION__);
+
 /* Initialization/Query functions */
 static int
 Wayland_VideoInit(_THIS);
@@ -52,6 +54,7 @@ static int
 Wayland_Available(void)
 {
     const char *envr = SDL_getenv("SDL_VIDEODRIVER");
+    FP();
     return envr && SDL_strcmp(envr, WAYLANDVID_DRIVER_NAME) == 0;
 }
 
@@ -65,6 +68,8 @@ static SDL_VideoDevice *
 Wayland_CreateDevice(int devindex)
 {
     SDL_VideoDevice *device;
+
+    FP();
 
     /* Initialize all variables that we clean on shutdown */
     device = SDL_calloc(1, sizeof(SDL_VideoDevice));
@@ -119,6 +124,7 @@ display_handle_geometry(void *data,
 {
     SDL_WaylandData *d = data;
 
+    FP();
     d->screen_allocation.x = x;
     d->screen_allocation.y = y;
 }
@@ -133,6 +139,7 @@ display_handle_mode(void *data,
 {
     SDL_WaylandData *d = data;
 
+    FP();
     if (flags & WL_OUTPUT_MODE_CURRENT) {
         d->screen_allocation.width = width;
         d->screen_allocation.height = height;
@@ -150,6 +157,7 @@ display_handle_global(struct wl_display *display, uint32_t id,
 {
     SDL_WaylandData *d = data;
 
+    FP();
     if (strcmp(interface, "wl_compositor") == 0) {
         d->compositor = wl_display_bind(display, id, &wl_compositor_interface);
     } else if (strcmp(interface, "wl_output") == 0) {
@@ -167,6 +175,7 @@ update_event_mask(uint32_t mask, void *data)
 {
     SDL_WaylandData *d = data;
 
+    FP();
     d->event_mask = mask;
 
     if (mask & WL_DISPLAY_WRITABLE)
@@ -182,6 +191,7 @@ Wayland_VideoInit(_THIS)
 {
     SDL_WaylandData *data;
 
+    FP();
     data = malloc(sizeof *data);
     if (data == NULL)
         return 0;
@@ -234,6 +244,7 @@ Wayland_GetDisplayModes(_THIS, SDL_VideoDisplay *sdl_display)
     SDL_WaylandData *data = _this->driverdata;
     SDL_DisplayMode mode;
 
+    FP();
     Wayland_PumpEvents(_this);
 
     mode.w = data->screen_allocation.width;
@@ -258,6 +269,7 @@ Wayland_VideoQuit(_THIS)
 {
     SDL_WaylandData *data = _this->driverdata;
 
+    FP();
     if (data->output);
         wl_output_destroy(data->output);
 

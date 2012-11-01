@@ -27,10 +27,13 @@
 #include "SDL_waylandwindow.h"
 #include "SDL_waylandvideo.h"
 
+#define FP()   fprintf(stderr, "%s\n", __PRETTY_FUNCTION__);
+
 static void
 handle_ping(void *data, struct wl_shell_surface *shell_surface,
             uint32_t serial)
 {
+    FP();
     wl_shell_surface_pong(shell_surface, serial);
 }
 
@@ -55,6 +58,7 @@ void Wayland_ShowWindow(_THIS, SDL_Window *window)
 {
     SDL_WaylandWindow *wind = window->driverdata;
 
+    FP();
     if (window->flags & SDL_WINDOW_FULLSCREEN)
         wl_shell_surface_set_fullscreen(wind->shell_surface,
                                         WL_SHELL_SURFACE_FULLSCREEN_METHOD_DEFAULT,
@@ -70,6 +74,7 @@ int Wayland_CreateWindow(_THIS, SDL_Window *window)
     SDL_WaylandWindow *data;
     SDL_WaylandData *c;
 
+    FP();
     data = malloc(sizeof *data);
     if (data == NULL)
         return 0;
@@ -127,6 +132,7 @@ void Wayland_DestroyWindow(_THIS, SDL_Window *window)
 
     window->driverdata = NULL;
 
+    FP();
     if (data) {
         eglDestroySurface(data->edpy, wind->esurf);
         wl_egl_window_destroy(wind->egl_window);

@@ -17903,6 +17903,11 @@ $as_echo "$video_wayland" >&6; }
             SOURCES="$SOURCES $srcdir/src/video/wayland/*.c"
             EXTRA_CFLAGS="$EXTRA_CFLAGS $(pkg-config --cflags wayland-client wayland-egl egl xkbcommon)"
             EXTRA_LDFLAGS="$EXTRA_LDFLAGS $(pkg-config --libs wayland-client wayland-egl egl xkbcommon)"
+            $as_echo "AK: EXTRA_LDFLAGS for wayland = ${EXTRA_LDFLAGS}"
+
+            # 0.90.94 uses wl_pointer_surface defined in server..
+            EXTRA_LDFLAGS="$EXTRA_LDFLAGS -lwayland-server"
+            $as_echo "AK: EXTRA_LDFLAGS for wayland = ${EXTRA_LDFLAGS}"
             have_video=yes
         fi
     fi
