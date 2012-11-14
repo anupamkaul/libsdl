@@ -33,6 +33,7 @@
 void
 Wayland_GL_SwapWindow(_THIS, SDL_Window *window)
 {
+    FP();
     SDL_WaylandWindow *wind = window->driverdata;
     SDL_WaylandData *data = _this->driverdata;
 
@@ -45,6 +46,8 @@ Wayland_GL_SwapWindow(_THIS, SDL_Window *window)
 int
 Wayland_GL_LoadLibrary(_THIS, const char *path)
 {
+    FP();
+
     /* FIXME: dlopen the library here? */
     SDL_WaylandData *data = _this->driverdata;
     int major, minor;

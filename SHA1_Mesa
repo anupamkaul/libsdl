@@ -1,0 +1,6 @@
+This version of libsdl works with wayland 0.90.90 (see file SHA1_Wayland)
+
+The MESA that works with this wayland is:
+
+git://anongit.freedesktop.org/mesa/mesa  (master)
+SHA1: be4c0a243e3314b8d8d24107494e2537a6d198ad

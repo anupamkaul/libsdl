@@ -64,10 +64,10 @@ Wayland_PumpEvents(_THIS)
     fd_set rfds;
     int retval;
 
+    FP();
+
     if (!(d->event_mask & WL_DISPLAY_READABLE))
         return;
-
-    FP();
 
     tv.tv_sec  = 0;
     tv.tv_usec = 0;
