@@ -27,7 +27,7 @@
 #include "SDL_waylandwindow.h"
 #include "SDL_waylandvideo.h"
 
-#define FP()   fprintf(stderr, "%s\n", __PRETTY_FUNCTION__);
+#define FP()   fprintf(stderr, "AK: %s\n", __PRETTY_FUNCTION__);
 
 static void
 handle_ping(void *data, struct wl_shell_surface *shell_surface,

@@ -28,7 +28,7 @@
 
 #include <dlfcn.h>
 
-#define FP()   fprintf(stderr, "%s\n", __PRETTY_FUNCTION__);
+#define FP()   fprintf(stderr, "AK: %s\n", __PRETTY_FUNCTION__);
 
 void
 Wayland_GL_SwapWindow(_THIS, SDL_Window *window)

@@ -40,7 +40,7 @@
 #include <unistd.h>
 #include <xkbcommon/xkbcommon.h>
 
-#define FP()   fprintf(stderr, "%s\n", __PRETTY_FUNCTION__);
+#define FP()   fprintf(stderr, "AK: %s\n", __PRETTY_FUNCTION__);
 
 struct SDL_WaylandInput {
     SDL_WaylandData *display;

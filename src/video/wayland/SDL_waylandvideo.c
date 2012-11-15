@@ -35,7 +35,7 @@
 
 #define WAYLANDVID_DRIVER_NAME "wayland"
 
-#define FP()   fprintf(stderr, "%s\n", __PRETTY_FUNCTION__);
+#define FP()   fprintf(stderr, "AK: %s\n", __PRETTY_FUNCTION__);
 
 /* Initialization/Query functions */
 static int

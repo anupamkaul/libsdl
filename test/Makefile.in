@@ -15,6 +15,7 @@ TARGETS = \
 	testfile$(EXE) \
 	testgesture$(EXE) \
 	testgl2$(EXE) \
+	testgl2_wayland$(EXE) \
 	testgles$(EXE) \
 	testhaptic$(EXE) \
 	testrumble$(EXE) \
@@ -90,6 +91,9 @@ testgesture$(EXE): $(srcdir)/testgesture.c
  
 testgl2$(EXE): $(srcdir)/testgl2.c $(srcdir)/common.c
 	$(CC) -o $@ $(srcdir)/testgl2.c $(srcdir)/common.c $(CFLAGS) $(LIBS) @GLLIB@ @MATHLIB@
+
+testgl2_wayland$(EXE): $(srcdir)/testgl2_wayland.c $(srcdir)/common.c
+	$(CC) -o $@ $(srcdir)/testgl2_wayland.c $(srcdir)/common.c $(CFLAGS) $(LIBS) @GLLIB@ @MATHLIB@
 
 testgles$(EXE): $(srcdir)/testgles.c $(srcdir)/common.c
 	$(CC) -o $@ $(srcdir)/testgles.c $(srcdir)/common.c $(CFLAGS) $(LIBS) @GLLIB@ @MATHLIB@
