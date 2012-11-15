@@ -85,6 +85,11 @@ HDRS = \
 	SDL_types.h \
 	SDL_version.h \
 	SDL_video.h \
+	SDL_waylandopengl.h \
+	SDL_waylandvideo.h \
+	SDL_waylandwindow.h \
+	SDL_waylandevents_c.h \
+	SDL_sysvideo.h \
 	begin_code.h \
 	close_code.h
 

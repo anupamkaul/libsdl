@@ -23,6 +23,7 @@
 #ifdef HAVE_OPENGL
 
 #include "SDL_opengl.h"
+#include "SDL_waylandopengl.h"
 
 /* Undefine this if you want a flat cube instead of a rainbow cube */
 #define SHADED_CUBE
@@ -233,15 +234,19 @@ main(int argc, char *argv[])
     }
 
     /* Create OpenGL context */
-    context = SDL_GL_CreateContext(state->windows[0]);
+    //context = Wayland_GL_CreateContext(_THIS, state->windows[0]);
+    SDL_VideoDevice *_this;
+    context = Wayland_GL_CreateContext(_this, state->windows[0]);
     if (!context) {
-        fprintf(stderr, "SDL_GL_CreateContext(): %s\n", SDL_GetError());
+        fprintf(stderr, "Wayland_GL_CreateContext(): %s\n", SDL_GetError());
         quit(2);
     }
 
     if (state->render_flags & SDL_RENDERER_PRESENTVSYNC) {
+        //Wayland_GL_SetSwapInterval(1);
         SDL_GL_SetSwapInterval(1);
     } else {
+        //Wayland_GL_SetSwapInterval(0);
         SDL_GL_SetSwapInterval(0);
     }
 
