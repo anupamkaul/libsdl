@@ -17834,7 +17834,6 @@ $as_echo "$need_gcc_Wno_multichar" >&6; }
 
 CheckWayland()
 {
-    $as_echo "MY CHECK FOR WAYLAND ..." 
     # Check whether --enable-video-wayland was given.
 if test "${enable_video_wayland+set}" = set; then :
   enableval=$enable_video_wayland;
@@ -17842,18 +17841,10 @@ else
   enable_video_wayland=yes
 fi
 
-    # AK - Hack1
-    enable_video_wayland=yes
-    enable_video=yes
-
     if test x$enable_video = xyes -a x$enable_video_wayland = xyes; then
         { $as_echo "$as_me:${as_lineno-$LINENO}: checking for Wayland support" >&5
 $as_echo_n "checking for Wayland support... " >&6; }
-        #video_wayland=no
-
-        # AK - Hack2  
-        video_wayland=yes
-
+        video_wayland=no
         cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
@@ -17882,8 +17873,6 @@ rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
 $as_echo "$video_wayland" >&6; }
         if test x$video_wayland = xyes; then
             $as_echo "#define SDL_VIDEO_DRIVER_WAYLAND 1" >>confdefs.h
-
-            $as_echo "ADDING WAYLAND SOURCES !!!" 
 
             SOURCES="$SOURCES $srcdir/src/video/wayland/*.c"
             EXTRA_CFLAGS="$EXTRA_CFLAGS $(pkg-config --cflags wayland-client wayland-egl egl xkbcommon)"

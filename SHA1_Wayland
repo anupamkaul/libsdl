@@ -1,4 +1,4 @@
-I am able to compile libsdl with the following wayland:
+I am able to compile libsdl with the following wayland: (0.94.90)
 
 git://people.freedesktop.org/~krh/wayland (master)
 SHA1: 7e71c38b98296843b8f3f24efd507e98f1f10c57
