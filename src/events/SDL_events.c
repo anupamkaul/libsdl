@@ -33,6 +33,8 @@
 #endif
 #include "../video/SDL_sysvideo.h"
 
+#define FP()   fprintf(stderr, "AK: %s\n", __PRETTY_FUNCTION__);
+
 /* Public data -- the event filter */
 SDL_EventFilter SDL_EventOK = NULL;
 void *SDL_EventOKParam;
@@ -296,6 +298,7 @@ SDL_FlushEvents(Uint32 minType, Uint32 maxType)
 void
 SDL_PumpEvents(void)
 {
+    FP();
     SDL_VideoDevice *_this = SDL_GetVideoDevice();
 
     /* Get events from the video subsystem */

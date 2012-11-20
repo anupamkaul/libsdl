@@ -25,6 +25,8 @@
 
 #include "SDL_shape.h"
 
+#include "begin_code.h"
+
 /* The SDL video driver */
 
 typedef struct SDL_WindowShaper SDL_WindowShaper;
@@ -340,7 +342,7 @@ extern VideoBootStrap DUMMY_bootstrap;
 extern VideoBootStrap Wayland_bootstrap;
 #endif
 
-extern SDL_VideoDevice *SDL_GetVideoDevice(void);
+extern DECLSPEC SDL_VideoDevice *SDL_GetVideoDevice(void);
 extern int SDL_AddBasicVideoDisplay(const SDL_DisplayMode * desktop_mode);
 extern int SDL_AddVideoDisplay(const SDL_VideoDisplay * display);
 extern SDL_bool SDL_AddDisplayMode(SDL_VideoDisplay *display, const SDL_DisplayMode * mode);
@@ -356,6 +358,8 @@ extern void SDL_OnWindowRestored(SDL_Window * window);
 extern void SDL_OnWindowFocusGained(SDL_Window * window);
 extern void SDL_OnWindowFocusLost(SDL_Window * window);
 extern SDL_Window * SDL_GetFocusWindow(void);
+
+#include "close_code.h"
 
 #endif /* _SDL_sysvideo_h */
 
