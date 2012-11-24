@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Make sure LD_LIBRARY_PATH points to where wayland is installed
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
+# Set XDG_RUNTIME_DIR
+mkdir -p $HOME/.xdg
+export XDG_RUNTIME_DIR=$HOME/.xdg
+
+# Debug variables for egl, wayland etc
+export MESA_DEBUG=1
+export EGL_LOG_LEVEL=debug
+export LIBGL_DEBUG=verbose
+export WAYLAND_DEBUG=1
+
+

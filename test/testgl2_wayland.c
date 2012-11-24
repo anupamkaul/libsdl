@@ -237,6 +237,7 @@ main(int argc, char *argv[])
     /* Create OpenGL context */
     //context = Wayland_GL_CreateContext(_THIS, state->windows[0]);
     SDL_VideoDevice *_this = SDL_GetVideoDevice();
+    //Wayland_VideoInit(_this);
     context = Wayland_GL_CreateContext(_this, state->windows[0]);
     if (!context) {
         fprintf(stderr, "Wayland_GL_CreateContext(): %s\n", SDL_GetError());

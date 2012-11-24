@@ -199,6 +199,7 @@ Wayland_VideoInit(_THIS)
 
     _this->driverdata = data;
 
+    fprintf(stderr, "AK: Connecting to a wayland server (display)\n");
     data->display = wl_display_connect(NULL);
     if (data->display == NULL) {
         SDL_SetError("Failed to connect to a Wayland display");

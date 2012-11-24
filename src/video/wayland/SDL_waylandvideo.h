@@ -30,6 +30,8 @@
 
 #include <EGL/egl.h>
 
+#include "begin_code.h"
+
 struct xkb_context;
 struct SDL_WaylandInput;
 
@@ -62,6 +64,8 @@ wayland_schedule_write(SDL_WaylandData *data)
     if (data->schedule_write)
         wl_display_iterate(data->display, WL_DISPLAY_WRITABLE);
 }
+
+#include "close_code.h"
 
 #endif /* _SDL_nullvideo_h */
 
