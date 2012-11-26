@@ -447,10 +447,14 @@ SDL_VideoInit(const char *driver_name)
     }
 
     // AK
-    //driver_name = "SDL Wayland video driver";
-    driver_name = "wayland";
+    //driver_name = "wayland";
+    // or, testgl2_wayland --video wayland
+    fprintf(stderr, "%s driver_name = %s\n", __PRETTY_FUNCTION__, driver_name);
+
     if (driver_name != NULL) {
         for (i = 0; bootstrap[i]; ++i) {
+            
+            fprintf(stderr, "%s loop driver name: compare %s and %s\n", __PRETTY_FUNCTION__, driver_name, bootstrap[i]->name);
             if (SDL_strcasecmp(bootstrap[i]->name, driver_name) == 0) {
                 video = bootstrap[i]->create(index);
                 break;
@@ -574,6 +578,8 @@ SDL_AddVideoDisplay(const SDL_VideoDisplay * display)
 {
     SDL_VideoDisplay *displays;
     int index = -1;
+
+    fprintf(stderr, "AK: %s\n", __PRETTY_FUNCTION__);
 
     displays =
         SDL_realloc(_this->displays,

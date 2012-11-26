@@ -9,6 +9,11 @@
   including commercial applications, and to alter it and redistribute it
   freely.
 */
+
+// ------------------------------------------
+// Invoke as: testgl2_wayland --video wayland
+// ------------------------------------------
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -235,10 +240,10 @@ main(int argc, char *argv[])
     }
 
     /* Create OpenGL context */
-    //context = Wayland_GL_CreateContext(_THIS, state->windows[0]);
-    SDL_VideoDevice *_this = SDL_GetVideoDevice();
-    //Wayland_VideoInit(_this);
-    context = Wayland_GL_CreateContext(_this, state->windows[0]);
+    //SDL_VideoDevice *_this = SDL_GetVideoDevice();
+    //context = Wayland_GL_CreateContext(_this, state->windows[0]);
+
+    context = SDL_GL_CreateContext(state->windows[0]);
     if (!context) {
         fprintf(stderr, "Wayland_GL_CreateContext(): %s\n", SDL_GetError());
         quit(2);

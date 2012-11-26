@@ -97,6 +97,8 @@ int Wayland_CreateWindow(_THIS, SDL_Window *window)
     data->waylandData = c;
     data->sdlwindow = window;
 
+    fprintf(stderr, "AK: Call wl_compositor_create_surface\n", __PRETTY_FUNCTION__);
+
     data->surface =
         wl_compositor_create_surface(c->compositor);
     wl_surface_set_user_data(data->surface, data);
